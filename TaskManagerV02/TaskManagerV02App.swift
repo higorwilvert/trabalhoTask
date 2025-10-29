@@ -19,3 +19,7 @@ struct GerenciadorTarefasApp: App {
         }
     }
 }
+
+//#Preview {
+//    GerenciadorTarefasApp()
+//}

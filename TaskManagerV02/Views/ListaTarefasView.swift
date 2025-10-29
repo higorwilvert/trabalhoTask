@@ -28,13 +28,19 @@ struct ListaTarefasView: View {
                                 viewModel.marcarComoConcluida(tarefa)
                             }) {
                                 Image(systemName: tarefa.concluida ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(tarefa.concluida ? .green : .gray)
+                                    .font(.title3)
                             }
-                            VStack(alignment: .leading) {
-                                Text(tarefa.titulo!)
-                                    .strikethrough(tarefa.concluida)
-                                Text("\(tarefa.categoria) • \(tarefa.prioridade)")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
+                            .buttonStyle(.plain)
+
+                            NavigationLink(destination: EditarTarefaView(viewModel: viewModel, tarefa: tarefa)) {
+                                VStack(alignment: .leading) {
+                                    Text(tarefa.titulo ?? "")
+                                        .strikethrough(tarefa.concluida)
+                                    Text("\(tarefa.categoria ?? "") • \(tarefa.prioridade ?? "")")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
                     }
@@ -42,6 +48,7 @@ struct ListaTarefasView: View {
                         indexSet.map { viewModel.tarefas[$0] }.forEach(viewModel.excluirTarefa)
                     }
                 }
+
             }
             .navigationTitle("Minhas Tarefas")
             .toolbar {
@@ -54,4 +61,8 @@ struct ListaTarefasView: View {
             }
         }
     }
+}
+
+#Preview {
+    ListaTarefasView()
 }
